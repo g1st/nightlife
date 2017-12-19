@@ -1,0 +1,18 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    title Nightlife
+  body
+    header This is header
+      nav This is nav inside header
+    main
+      block content
+        section This will be block content's fall back
+    footer
+      div div in a footer
+    script(type="text/javascript" src=`https://maps.googleapis.com/maps/api/js?key=${process.env.apiKey}&libraries=places`)
+    script(src="/javascript/bundle.js")
+    
