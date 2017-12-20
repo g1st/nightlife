@@ -992,20 +992,18 @@ function autocomplete(input, form) {
 
 
 function generateSuccessHTMLOutput(data) {
-  console.log(data[0]);
-  let html = '';
-  for (let i = 0; i < data.length; i++) {
-    html += `
-    <div class="venue">
-      <h2>${data[i].name}</h2>
-      <p>${data[i].price}</p>
-      <p>${data[i].rating}</p>
-    </div>
-    `;
-  }
-  return html;
+  return data
+    .map(venue => {
+      return `
+        <div class="venue">
+        <h2>${venue.name}</h2>
+        <p>${venue.price}</p>
+        <p>${venue.rating}</p>
+        </div>
+      `;
+    })
+    .join('');
 }
-// <p>${JSON.stringify(data, null, '\t')}<p>
 
 function ajaxSearch(lat, lng) {
   __WEBPACK_IMPORTED_MODULE_0_axios___default.a
