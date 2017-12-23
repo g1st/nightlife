@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  .inner
+    h2 Login
+    form(action="/login" method="POST")
+      label(for="email") Email
+      input(type="email" name="email" required)
+      label(for="password") Password
+      input(type="password" name="password" required)
+      input(type="submit" value="Login")

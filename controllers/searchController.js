@@ -15,7 +15,6 @@ exports.searchBusiness = (req, res) => {
       price: '1, 2, 3, 4'
     })
     .then(results => {
-      // console.log(results);
       res.send(results);
     })
     .catch(err => log.error(err));

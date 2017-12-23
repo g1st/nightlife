@@ -959,7 +959,6 @@ Object(__WEBPACK_IMPORTED_MODULE_0__modules_autocomplete_js__["a" /* default */]
 
 function autocomplete(input, form) {
   if (!input) return; // skip if there are no input on the page
-  console.log(input);
   const autocomplete = new google.maps.places.Autocomplete(input);
 
   autocomplete.addListener('place_changed', () => {
@@ -1014,7 +1013,6 @@ function ajaxSearch(lat, lng) {
       }
     })
     .then(res => {
-      console.log(res.data.businesses);
       // finish css loading animation
       resultElement.innerHTML = generateSuccessHTMLOutput(res.data.businesses);
     })
