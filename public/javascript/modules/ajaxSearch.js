@@ -23,7 +23,6 @@ function ajaxSearch(lat, lng) {
       }
     })
     .then(res => {
-      console.log(res.data.businesses);
       // finish css loading animation
       resultElement.innerHTML = generateSuccessHTMLOutput(res.data.businesses);
     })

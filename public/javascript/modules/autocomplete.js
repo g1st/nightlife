@@ -2,7 +2,6 @@ import ajaxSearch from './ajaxSearch.js';
 
 function autocomplete(input, form) {
   if (!input) return; // skip if there are no input on the page
-  console.log(input);
   const autocomplete = new google.maps.places.Autocomplete(input);
 
   autocomplete.addListener('place_changed', () => {
