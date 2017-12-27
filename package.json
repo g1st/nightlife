@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "webpack": "webpack ./public/javascript/entry.js ./public/javascript/bundle.js"
+    "webpack":
+      "webpack ./public/javascript/entry.js ./public/javascript/bundle.js",
+    "start": "concurrently \"npm run webpack\" \"nodemon app\""
   },
   "author": "Gintaras Stankus",
   "license": "ISC",

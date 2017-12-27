@@ -5,11 +5,11 @@ block content
     h2 Signup
     form(action="/signup" method="POST")
       label(for="name") Name
-      input(type="text" name="name" required)
+      input(type="text" name="name" value=(body && body.name))
       label(for="email") Email
-      input(type="email" name="email" required)
+      input(type="email" name="email" value=(body && body.email))
       label(for="password") Password
-      input(type="password" name="password" required)
+      input(type="password" name="password")
       label(for="password-confirm") Confirm password
-      input(type="password" name="password-confirm" required)
+      input(type="password" name="password-confirm")
       input(type="submit" value="Signup")
