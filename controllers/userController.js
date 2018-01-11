@@ -16,9 +16,27 @@ exports.signup = (req, res) => {
   });
 };
 
+exports.logout = (req, res) => {
+  req.logout();
+  res.redirect('/');
+};
+
+exports.loginFormValidation = (req, res, next) => {
+  const errors = validationResult(req);
+  // console.log(errors.mapped());
+  if (!errors.isEmpty()) {
+    // TODO: flash errors nicely
+    // return res.status(422).json({
+    //   errors: errors.mapped()
+    // });
+    return res.render('login', { title: 'Login', body: req.body });
+  }
+  next();
+};
+
 exports.signMe = async (req, res, next) => {
   const errors = validationResult(req);
-  // console.log(errors)
+  // console.log(errors.mapped());
   if (!errors.isEmpty()) {
     // TODO: flash errors nicely
     // return res.status(422).json({
@@ -29,6 +47,20 @@ exports.signMe = async (req, res, next) => {
       body: req.body
     });
   }
+
+  const userAlreadyExists = await User.findOne({
+    email: req.body.email
+  });
+
+  if (userAlreadyExists) {
+    console.log('username already exists');
+    // flash error that emial already exists
+    return res.render('signup', {
+      title: 'Signup',
+      body: req.body
+    });
+  }
+
   const user = new User({
     email: req.body.email,
     name: req.body.name

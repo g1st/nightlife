@@ -934,98 +934,134 @@ module.exports = Cancel;
 
 /***/ }),
 /* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modules_autocomplete_js__ = __webpack_require__(9);
 
 
-Object(__WEBPACK_IMPORTED_MODULE_0__modules_autocomplete_js__["a" /* default */])(
-  document.querySelector('#search'),
-  // document.querySelector('#lat'),
-  // document.querySelector('#lng'),
-  document.querySelector('#searchForm')
-);
+var _autocomplete = __webpack_require__(9);
 
+var _autocomplete2 = _interopRequireDefault(_autocomplete);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+(0, _autocomplete2.default)(document.querySelector('#search'),
+// document.querySelector('#lat'),
+// document.querySelector('#lng'),
+document.querySelector('#searchForm'));
 
 /***/ }),
 /* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ajaxSearch_js__ = __webpack_require__(10);
 
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _ajaxSearch = __webpack_require__(10);
+
+var _ajaxSearch2 = _interopRequireDefault(_ajaxSearch);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function autocomplete(input, form) {
   if (!input) return; // skip if there are no input on the page
-  const autocomplete = new google.maps.places.Autocomplete(input);
+  var autocomplete = new google.maps.places.Autocomplete(input);
 
-  autocomplete.addListener('place_changed', () => {
-    const place = autocomplete.getPlace();
-    const lat = place.geometry.location.lat();
-    const lng = place.geometry.location.lng();
+  autocomplete.addListener('place_changed', function () {
+    var place = autocomplete.getPlace();
+    var lat = place.geometry.location.lat();
+    var lng = place.geometry.location.lng();
     console.log(lat);
     console.log(lng);
     if (lat) {
-      Object(__WEBPACK_IMPORTED_MODULE_0__ajaxSearch_js__["a" /* default */])(lat, lng);
+      (0, _ajaxSearch2.default)(lat, lng);
     }
   });
 
   // if someone hits enter on address field dont submit the form for now
-  input.addEventListener('keydown', e => {
+  input.addEventListener('keydown', function (e) {
     if (e.keyCode === 13) e.preventDefault();
   });
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (autocomplete);
-
+exports.default = autocomplete;
 
 /***/ }),
 /* 10 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 
 
-function generateSuccessHTMLOutput(data) {
-  return data
-    .map(venue => {
-      return `
-        <div class="venue">
-        <h2>${venue.name}</h2>
-        <p>${venue.price}</p>
-        <p>${venue.rating}</p>
-        </div>
-      `;
-    })
-    .join('');
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _axios = __webpack_require__(11);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function generateSuccessHTMLOutput(data, places) {
+  return data.map(function (venue) {
+    return '\n        <form action="api/' + venue.id + '" method="POST" class="venue">\n          <h2>' + venue.name + '</h2>\n          <p>' + venue.price + '</p>\n          <p>' + venue.rating + '</p>\n          <button type="submit">' + peopleGoing(venue.id, places) + ' Going</button>\n        </form>\n      ';
+  }).join('');
 }
 
 function ajaxSearch(lat, lng) {
-  __WEBPACK_IMPORTED_MODULE_0_axios___default.a
-    .get('/api/places', {
-      params: {
-        lat: lat,
-        lng: lng
-      }
-    })
-    .then(res => {
-      // finish css loading animation
-      resultElement.innerHTML = generateSuccessHTMLOutput(res.data.businesses);
-    })
-    .catch(err => {
-      console.log(err);
-      // resultElement.innerHTML = generateErrorHTMLOutput(error);
-    });
+  _axios2.default.get('/api/places', {
+    params: {
+      lat: lat,
+      lng: lng
+    }
+  }).then(function (res) {
+    // finish css loading animation
+    resultElement.innerHTML = generateSuccessHTMLOutput(res.data.data, res.data.places);
+  }).catch(function (err) {
+    console.log(err);
+    // resultElement.innerHTML = generateErrorHTMLOutput(error);
+  });
 }
 
-const resultElement = document.querySelector('.results');
+function peopleGoing(venueId, places) {
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
 
-/* harmony default export */ __webpack_exports__["a"] = (ajaxSearch);
+  try {
+    for (var _iterator = places[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var place = _step.value;
 
+      if (venueId === place.placeId) {
+        return place.peopleGoing;
+      }
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator.return) {
+        _iterator.return();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
+    }
+  }
+
+  return 0;
+}
+
+var resultElement = document.querySelector('.results');
+
+exports.default = ajaxSearch;
 
 /***/ }),
 /* 11 */

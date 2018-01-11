@@ -17,7 +17,7 @@ const userSchema = new Schema({
   name: {
     type: String,
     required: 'Please supply a name',
-    trum: true
+    trim: true
   }
 });
 

@@ -5,7 +5,7 @@ block content
     h2 Login
     form(action="/login" method="POST")
       label(for="email") Email
-      input(type="email" name="email" required)
+      input(type="email" name="email" value=(body && body.email) required)
       label(for="password") Password
       input(type="password" name="password" required)
       input(type="submit" value="Login")
