@@ -37,11 +37,11 @@ exports.peopleGoing = async (req, res) => {
   });
   if (!place) {
     // create place and add username to going list
-    const plc = await new Place({
+    const newPlace = await new Place({
       placeId: req.params.id,
       users: [req.user.email]
     }).save();
-    return res.json({ plc });
+    return res.json({ newPlace });
   }
   // check if user is in going list
   // if he is - remove from the list and peopleGoing -1
@@ -51,7 +51,8 @@ exports.peopleGoing = async (req, res) => {
       {
         $inc: { peopleGoing: -1 },
         $pull: { users: req.user.email }
-      }
+      },
+      { new: true }
     );
     return res.json({ update });
   } else {
@@ -61,7 +62,8 @@ exports.peopleGoing = async (req, res) => {
       {
         $inc: { peopleGoing: +1 },
         $push: { users: req.user.email }
-      }
+      },
+      { new: true }
     );
     return res.json({ update });
   }

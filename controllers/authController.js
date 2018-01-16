@@ -11,6 +11,23 @@ exports.login = passport.authenticate('local', {
   // successFlash: 'You are now logged in!'
 });
 
+// exports.login = (req, res, next) => {
+//   passport.authenticate('local', function(err, user, info) {
+//     if (err) {
+//       return next(err);
+//     }
+//     if (!user) {
+//       return res.redirect('/login');
+//     }
+//     req.logIn(user, function(err) {
+//       if (err) {
+//         return next(err);
+//       }
+//       return res.redirect('/');
+//     });
+//   })(req, res, next);
+// };
+
 exports.isLoggedIn = (req, res, next) => {
   if (req.isAuthenticated()) {
     next();
@@ -18,5 +35,5 @@ exports.isLoggedIn = (req, res, next) => {
   }
   // req.flash('error', 'You need to log in in order to do that!');
   console.log('you are not logged in');
-  res.redirect('login');
+  return res.redirect('/login');
 };
