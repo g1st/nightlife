@@ -1,14 +1,18 @@
 import axios from 'axios';
+import goingButton from './goingButton';
 
 function generateSuccessHTMLOutput(data, places) {
   return data
     .map(venue => {
       return `
-        <form action="api/${venue.id}" method="POST" class="venue">
+      <form action="api/${venue.id}" method="POST" class="venue">
           <h2>${venue.name}</h2>
           <p>${venue.price}</p>
           <p>${venue.rating}</p>
-          <button type="submit">${peopleGoing(venue.id, places)} Going</button>
+          <button type="submit" name="goingButton">${peopleGoing(
+            venue.id,
+            places
+          )} Going</button>
         </form>
       `;
     })
@@ -29,6 +33,12 @@ function ajaxSearch(lat, lng) {
         res.data.data,
         res.data.places
       );
+      const forms = document.querySelectorAll('form.venue');
+      forms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+          goingButton(e, this);
+        });
+      });
     })
     .catch(err => {
       console.log(err);
