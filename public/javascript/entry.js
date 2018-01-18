@@ -1,9 +1,7 @@
-import autocomplete from './modules/autocomplete.js';
+import autocompleteGoogle from './modules/autocomplete.js';
 import goingButton from './modules/goingButton.js';
 
-autocomplete(
+autocompleteGoogle(
   document.querySelector('#search'),
-  // document.querySelector('#lat'),
-  // document.querySelector('#lng'),
   document.querySelector('#searchForm')
 );

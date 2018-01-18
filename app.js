@@ -9,6 +9,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
+const flash = require('connect-flash');
 
 const app = express();
 
@@ -40,6 +41,8 @@ app.use(
 // Configure passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(flash());
 
 mongoose.connect(
   `mongodb://${process.env.mongodb_user}:${

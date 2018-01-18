@@ -24,11 +24,6 @@ exports.searchBusiness = async (req, res) => {
       });
     })
     .catch(err => console.error(err));
-
-  // yelp.autoComplete(params);
-  // yelp
-  //   .autoComplete({ text: 'ice cream' })
-  //   .then(results => console.log(results));
 };
 
 exports.peopleGoing = async (req, res) => {
@@ -43,28 +38,21 @@ exports.peopleGoing = async (req, res) => {
     }).save();
     return res.json({ newPlace });
   }
-  // check if user is in going list
-  // if he is - remove from the list and peopleGoing -1
-  if (place.users.includes(req.user.email)) {
-    const update = await Place.findOneAndUpdate(
-      { placeId: req.params.id },
-      {
-        $inc: { peopleGoing: -1 },
-        $pull: { users: req.user.email }
-      },
-      { new: true }
-    );
-    return res.json({ update });
-  } else {
-    // if he is not - add to the usernames list and +1 poepleGoing
-    const update = await Place.findOneAndUpdate(
-      { placeId: req.params.id },
-      {
-        $inc: { peopleGoing: +1 },
-        $push: { users: req.user.email }
-      },
-      { new: true }
-    );
-    return res.json({ update });
-  }
+
+  const add = ['1', '$push'];
+  const remove = ['-1', '$pull'];
+
+  const [increaser, operator] = place.users.includes(req.user.email)
+    ? remove
+    : add;
+
+  const update = await Place.findOneAndUpdate(
+    { placeId: req.params.id },
+    {
+      $inc: { peopleGoing: increaser },
+      [operator]: { users: req.user.email }
+    },
+    { new: true }
+  );
+  return res.json({ update });
 };

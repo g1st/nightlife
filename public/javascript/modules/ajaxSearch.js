@@ -29,6 +29,7 @@ function ajaxSearch(lat, lng) {
     })
     .then(res => {
       // finish css loading animation
+      const resultElement = document.querySelector('.results');
       resultElement.innerHTML = generateSuccessHTMLOutput(
         res.data.data,
         res.data.places
@@ -36,13 +37,12 @@ function ajaxSearch(lat, lng) {
       const forms = document.querySelectorAll('form.venue');
       forms.forEach(form => {
         form.addEventListener('submit', function(e) {
-          goingButton(e, this);
+          goingButton(e, this, lat, lng);
         });
       });
     })
     .catch(err => {
       console.log(err);
-      // resultElement.innerHTML = generateErrorHTMLOutput(error);
     });
 }
 
@@ -54,7 +54,5 @@ function peopleGoing(venueId, places) {
   }
   return 0;
 }
-
-const resultElement = document.querySelector('.results');
 
 export default ajaxSearch;

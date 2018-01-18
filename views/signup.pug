@@ -3,13 +3,17 @@ extends layout
 block content
   .inner
     h2 Signup
+    if errors
+      ul
+        each err in errors
+          li= err.msg
     form(action="/signup" method="POST")
       label(for="name") Name
-      input(type="text" name="name" value=(body && body.name))
+      input(type="text" name="name" value=(body && body.name) required)
       label(for="email") Email
-      input(type="email" name="email" value=(body && body.email))
+      input(type="email" name="email" value=(body && body.email) required)
       label(for="password") Password
-      input(type="password" name="password")
+      input(type="password" name="password" required)
       label(for="password-confirm") Confirm password
-      input(type="password" name="password-confirm")
+      input(type="password" name="password-confirm" required)
       input(type="submit" value="Signup")

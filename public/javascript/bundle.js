@@ -955,13 +955,17 @@ var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function goingButton(e, target) {
+function goingButton(e, target, lat, lng) {
   e.preventDefault();
   _axios2.default.post(target.action).then(function (res) {
     var result = res.data;
+    // db rejected request - user not logged in
+    // info to redirect user back from where he came
     if (!result.update && !result.newPlace) {
-      alert('You must be logged in');
-
+      var form = document.getElementById('search');
+      sessionStorage.setItem('search', form.value);
+      sessionStorage.setItem('lat', lat);
+      sessionStorage.setItem('lng', lng);
       window.location.href = window.location + 'login';
     }
     var number = result.update ? result.update.peopleGoing : result.newPlace.peopleGoing;
@@ -990,10 +994,7 @@ var _goingButton2 = _interopRequireDefault(_goingButton);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-(0, _autocomplete2.default)(document.querySelector('#search'),
-// document.querySelector('#lat'),
-// document.querySelector('#lng'),
-document.querySelector('#searchForm'));
+(0, _autocomplete2.default)(document.querySelector('#search'), document.querySelector('#searchForm'));
 
 /***/ }),
 /* 11 */
@@ -1014,19 +1015,30 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function autocomplete(input, form) {
   if (!input) return; // skip if there are no input on the page
+
   var autocomplete = new google.maps.places.Autocomplete(input);
 
   autocomplete.addListener('place_changed', function () {
     var place = autocomplete.getPlace();
     var lat = place.geometry.location.lat();
     var lng = place.geometry.location.lng();
-    console.log(lat);
-    console.log(lng);
     if (lat) {
       (0, _ajaxSearch2.default)(lat, lng);
     }
   });
 
+  // show what user was searching after login redirect
+  if (sessionStorage.getItem('search') !== undefined) {
+    document.querySelector('#search').value = sessionStorage.getItem('search');
+    var lat = sessionStorage.getItem('lat');
+    var lng = sessionStorage.getItem('lng');
+    if (lat) {
+      (0, _ajaxSearch2.default)(lat, lng);
+      sessionStorage.removeItem('search');
+      sessionStorage.removeItem('lat');
+      sessionStorage.removeItem('lng');
+    }
+  }
   // if someone hits enter on address field dont submit the form for now
   input.addEventListener('keydown', function (e) {
     if (e.keyCode === 13) e.preventDefault();
@@ -1070,16 +1082,16 @@ function ajaxSearch(lat, lng) {
     }
   }).then(function (res) {
     // finish css loading animation
+    var resultElement = document.querySelector('.results');
     resultElement.innerHTML = generateSuccessHTMLOutput(res.data.data, res.data.places);
     var forms = document.querySelectorAll('form.venue');
     forms.forEach(function (form) {
       form.addEventListener('submit', function (e) {
-        (0, _goingButton2.default)(e, this);
+        (0, _goingButton2.default)(e, this, lat, lng);
       });
     });
   }).catch(function (err) {
     console.log(err);
-    // resultElement.innerHTML = generateErrorHTMLOutput(error);
   });
 }
 
@@ -1113,8 +1125,6 @@ function peopleGoing(venueId, places) {
 
   return 0;
 }
-
-var resultElement = document.querySelector('.results');
 
 exports.default = ajaxSearch;
 

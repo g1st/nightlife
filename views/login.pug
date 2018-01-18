@@ -3,6 +3,12 @@ extends layout
 block content
   .inner
     h2 Login
+    if message
+      p #{message}
+    if errors
+      ul
+        each err in errors
+          li= err.msg
     form(action="/login" method="POST")
       label(for="email") Email
       input(type="email" name="email" value=(body && body.email) required)
