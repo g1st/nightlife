@@ -1,13 +1,13 @@
 header
-  nav
-    ul
+  nav.main-nav
+    ul.navbar
       li
-        a(href='/') Home
+        a.button-nav.home(href='/') Home
       if user
         li
-          a(href='/logout') Logout
+          a.button-nav(href='/logout') Logout
       else
         li
-          a(href='/login/') Login
+          a.button-nav(href='/login/') Login
         li
-          a(href='/signup') Signup
+          a.button-nav(href='/signup') Signup

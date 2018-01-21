@@ -18,9 +18,11 @@ exports.searchBusiness = async (req, res) => {
       price: '1, 2, 3, 4'
     })
     .then(data => {
+      console.log(data);
       return res.json({
         places,
-        data: data.businesses
+        data: data.businesses,
+        total: data.total
       });
     })
     .catch(err => console.error(err));
