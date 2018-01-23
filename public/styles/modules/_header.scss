@@ -2,17 +2,57 @@ header {
   background: $nav-background;
 }
 
-.main-nav {
-  padding: 10px;
+nav {
+  position: relative;
   display: flex;
-  justify-content: flex-end;
-  ul {
-    list-style: none;
-    li {
-      display: inline-block;
+  flex-direction: column;
+  padding: 10px;
+  margin: 0;
+
+  @include atMedium {
+    flex-direction: row;
+  }
+
+  .logo {
+    @include atMedium {
+      position: static;
+      margin-right: auto;
     }
   }
 }
 
-.navbar {
+ul {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.menu-content {
+  display: none;
+  justify-content: center;
+
+  @include atMedium {
+    display: block;
+  }
+}
+.visible {
+  display: flex;
+}
+
+@keyframes menu {
+  0% {
+  }
+}
+
+.menu-icon {
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+  @include atMedium {
+    display: none;
+  }
 }

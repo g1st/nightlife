@@ -1,0 +1,22 @@
+body {
+  background-color: $main-background;
+  font-family: 'Open Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  margin: 10px;
+  border-radius: 5px;
+  background: $button;
+  color: #fff;
+  display: inline-block;
+  padding: 15px;
+  text-decoration: none;
+  &:active,
+  &:hover {
+    background-color: $button-active;
+  }
+}

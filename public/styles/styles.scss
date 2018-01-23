@@ -1,4 +1,6 @@
-@import './modules/_normalize.css';
-@import './modules/_base.scss';
+@import './base/normalize.css';
+@import './base/variables.scss';
+@import './base/mixins.scss';
+@import './base/globals.scss';
 @import './modules/_header.scss';
 @import './modules/_buttons.scss';

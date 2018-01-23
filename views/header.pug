@@ -1,13 +1,15 @@
 header
-  nav.main-nav
-    ul.navbar
-      li
-        a.button-nav.home(href='/') Home
-      if user
-        li
-          a.button-nav(href='/logout') Logout
-      else
-        li
-          a.button-nav(href='/login/') Login
-        li
-          a.button-nav(href='/signup') Signup
+  nav
+    .logo
+      a.button(href='/') Home
+    .menu-icon
+    .menu-content
+      ul
+        if user
+          li
+            a.button(href='/logout') Logout
+        else
+          li
+            a.button(href='/login/') Login
+          li
+            a.button(href='/signup') Signup

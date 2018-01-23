@@ -994,6 +994,10 @@ var _goingButton = __webpack_require__(9);
 
 var _goingButton2 = _interopRequireDefault(_goingButton);
 
+var _hamburger = __webpack_require__(32);
+
+var _hamburger2 = _interopRequireDefault(_hamburger);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (0, _autocomplete2.default)(document.querySelector('#search'), document.querySelector('#searchForm'));
@@ -2021,6 +2025,21 @@ module.exports = function spread(callback) {
   };
 };
 
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var menu_icon = document.querySelector('.menu-icon');
+var menu_content = document.querySelector('.menu-content');
+
+menu_icon.addEventListener('click', function () {
+  console.log('hamburger clicked');
+  menu_content.classList.toggle('visible');
+});
 
 /***/ })
 /******/ ]);
