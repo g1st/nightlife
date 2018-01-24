@@ -2033,12 +2033,12 @@ module.exports = function spread(callback) {
 "use strict";
 
 
-var menu_icon = document.querySelector('.menu-icon');
-var menu_content = document.querySelector('.menu-content');
+var menu_icon = document.querySelector('.site-header__navigation--menu-icon');
+var menu_content = document.querySelector('.site-header__navigation--menu-content');
 
 menu_icon.addEventListener('click', function () {
   console.log('hamburger clicked');
-  menu_content.classList.toggle('visible');
+  menu_content.classList.toggle('site-header__navigation--menu-content--visible');
 });
 
 /***/ })

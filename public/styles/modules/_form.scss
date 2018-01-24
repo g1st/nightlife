@@ -1,0 +1,26 @@
+.form {
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+
+  @include atMedium {
+    padding-top: 40px;
+  }
+
+  &__input {
+    margin: auto;
+    width: 220px;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1.35rem;
+    border: 3px solid $nav-background;
+    background-color: $main-background;
+    color: $white;
+    outline: none;
+
+    @include atMedium {
+      width: 360px;
+      font-size: 2rem;
+    }
+  }
+}

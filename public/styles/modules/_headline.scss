@@ -1,0 +1,30 @@
+.headline {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 300;
+
+  @include atMedium {
+    font-size: 3.5rem;
+    font-weight: 600;
+  }
+
+  &--medium {
+    font-size: 1.25rem;
+    font-weight: 200;
+
+    @include atMedium {
+      font-size: 2rem;
+      font-weight: 300;
+    }
+  }
+
+  &--small {
+    font-size: 1rem;
+    font-weight: 200;
+
+    @include atMedium {
+      font-size: 1.5rem;
+      font-weight: 300;
+    }
+  }
+}

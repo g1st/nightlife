@@ -1,15 +1,15 @@
-header
-  nav
-    .logo
-      a.button(href='/') Home
-    .menu-icon
-    .menu-content
+header.site-header
+  nav.site-header__navigation
+    .site-header__navigation--logo
+      a(href='/') Home
+    .site-header__navigation--menu-icon
+    .site-header__navigation--menu-content
       ul
         if user
           li
-            a.button(href='/logout') Logout
+            a(href='/logout') Logout
         else
           li
-            a.button(href='/login/') Login
+            a(href='/login/') Login
           li
-            a.button(href='/signup') Signup
+            a(href='/signup') Signup

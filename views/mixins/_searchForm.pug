@@ -1,3 +1,4 @@
 mixin searchForm()
-  form(id="searchForm" method="get" action="/api/places")
-    input(type="text" id="search" name="search" placeholder="Enter a city")
+  .form
+    form(id="searchForm" method="get" action="/api/places")
+      input.form__input(type="text" id="search" name="search" placeholder="Enter a city")
