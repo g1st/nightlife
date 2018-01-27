@@ -8,6 +8,8 @@ function autocomplete(input, form) {
     const lat = place.geometry.location.lat();
     const lng = place.geometry.location.lng();
     if (lat) {
+      // start css animation
+      document.querySelector('.loading').innerText = 'Searching...';
       ajaxSearch(lat, lng);
     }
   });

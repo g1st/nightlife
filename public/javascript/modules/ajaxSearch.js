@@ -6,17 +6,22 @@ function generateSuccessHTMLOutput(data, places) {
     .map(venue => {
       return `
       <form action="api/${venue.id}" method="POST" class="venue">
-          <a href=${venue.url} target="_blank"><img src=${
-        venue.image_url
-      } alt=${venue.name} width="200px"></a>
-          <h2>${venue.name}</h2>
-          <p>${venue.price}</p>
-          <p>${venue.rating}</p>
-          <button type="submit" name="goingButton">${peopleGoing(
+        <div class="venue__medium-screen venue__medium-screen--left"><a href=${
+          venue.url
+        } target="_blank"><img src=${venue.image_url} alt=${
+        venue.name
+      } width="190px"></a>
+        </div>
+        <div class="venue__medium-screen venue__medium-screen--right">
+          <h2 class="headline headline--medium">${venue.name}</h2>
+          <p class="headline headline--small">Price: ${venue.price}</p>
+          <p class="headline headline--small">Rating: ${venue.rating}</p>
+          <button type="submit" name="goingButton" class="venue--btn">${peopleGoing(
             venue.id,
             places
           )} Going</button>
-        </form>
+        </div>
+      </form>
       `;
     })
     .join('');
@@ -32,6 +37,8 @@ function ajaxSearch(lat, lng) {
     })
     .then(res => {
       // finish css loading animation
+      document.querySelector('.loading').innerText = '';
+
       const resultElement = document.querySelector('.results');
       if (res.data.total === 0) {
         resultElement.innerHTML = `

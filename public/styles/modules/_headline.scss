@@ -19,12 +19,21 @@
   }
 
   &--small {
-    font-size: 1rem;
+    font-size: 0.75rem;
     font-weight: 200;
 
     @include atMedium {
-      font-size: 1.5rem;
+      font-size: 1rem;
       font-weight: 300;
+    }
+  }
+
+  &--left {
+    text-align: left;
+    padding-left: 20px;
+
+    @include atMedium {
+      padding-left: 100px;
     }
   }
 }

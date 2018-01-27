@@ -1033,6 +1033,8 @@ function autocomplete(input, form) {
     var lat = place.geometry.location.lat();
     var lng = place.geometry.location.lng();
     if (lat) {
+      // start css animation
+      document.querySelector('.loading').innerText = 'Searching...';
       (0, _ajaxSearch2.default)(lat, lng);
     }
   });
@@ -1080,7 +1082,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function generateSuccessHTMLOutput(data, places) {
   return data.map(function (venue) {
-    return '\n      <form action="api/' + venue.id + '" method="POST" class="venue">\n          <a href=' + venue.url + ' target="_blank"><img src=' + venue.image_url + ' alt=' + venue.name + ' width="200px"></a>\n          <h2>' + venue.name + '</h2>\n          <p>' + venue.price + '</p>\n          <p>' + venue.rating + '</p>\n          <button type="submit" name="goingButton">' + peopleGoing(venue.id, places) + ' Going</button>\n        </form>\n      ';
+    return '\n      <form action="api/' + venue.id + '" method="POST" class="venue">\n        <div class="venue__medium-screen venue__medium-screen--left"><a href=' + venue.url + ' target="_blank"><img src=' + venue.image_url + ' alt=' + venue.name + ' width="190px"></a>\n        </div>\n        <div class="venue__medium-screen venue__medium-screen--right">\n          <h2 class="headline headline--medium">' + venue.name + '</h2>\n          <p class="headline headline--small">Price: ' + venue.price + '</p>\n          <p class="headline headline--small">Rating: ' + venue.rating + '</p>\n          <button type="submit" name="goingButton" class="venue--btn">' + peopleGoing(venue.id, places) + ' Going</button>\n        </div>\n      </form>\n      ';
   }).join('');
 }
 
@@ -1092,6 +1094,8 @@ function ajaxSearch(lat, lng) {
     }
   }).then(function (res) {
     // finish css loading animation
+    document.querySelector('.loading').innerText = '';
+
     var resultElement = document.querySelector('.results');
     if (res.data.total === 0) {
       resultElement.innerHTML = '\n        <p>Sorry, we cannot find any venues in this area.</p>\n        <p><a href="https://www.yelp.com/developers/documentation/v3/supported_locales" target="_blank">Countries supported by Yelp\'s API</a></p>\n        ';
@@ -2033,12 +2037,13 @@ module.exports = function spread(callback) {
 "use strict";
 
 
-var menu_icon = document.querySelector('.site-header__navigation--menu-icon');
+var menu_icon = document.querySelector('.icona');
 var menu_content = document.querySelector('.site-header__navigation--menu-content');
 
 menu_icon.addEventListener('click', function () {
-  console.log('hamburger clicked');
   menu_content.classList.toggle('site-header__navigation--menu-content--visible');
+  menu_icon.classList.toggle('active');
+  menu_icon.classList.remove('no-animation');
 });
 
 /***/ })

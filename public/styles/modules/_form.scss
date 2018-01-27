@@ -2,23 +2,55 @@
   display: flex;
   justify-content: center;
   padding-top: 20px;
+  flex-direction: column;
 
   @include atMedium {
     padding-top: 40px;
   }
 
-  &__input {
+  &--input {
+    display: block;
     margin: auto;
-    width: 220px;
+    width: 190px;
     border-radius: 5px;
-    padding: 10px;
-    font-size: 1.35rem;
-    border: 3px solid $nav-background;
+    padding: 5px;
+    font-size: 1.15rem;
+    border: 2px solid $nav-background;
     background-color: $main-background;
     color: $white;
     outline: none;
+    margin-bottom: 20px;
 
     @include atMedium {
+      border: 3px solid $nav-background;
+      width: 360px;
+      font-size: 2rem;
+      padding: 10px;
+    }
+  }
+
+  &--btn {
+    display: block;
+    margin: auto;
+    width: 190px;
+    border-radius: 5px;
+    font-size: 1.15rem;
+    color: $white;
+    background-color: $link-green;
+    padding: 5px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    transition: background-color 0.2s ease;
+
+    &:active,
+    &:hover {
+      background-color: $link-green-active;
+      color: $black;
+    }
+
+    @include atMedium {
+      padding: 10px;
       width: 360px;
       font-size: 2rem;
     }
