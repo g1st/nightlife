@@ -1,11 +1,11 @@
 const Yelp = require('node-yelp-api-v3');
-const config = require('../config/secret');
+// const config = require('../config/secret');
 const Place = require('../models/Place');
 
 exports.searchBusiness = async (req, res) => {
   const yelp = new Yelp({
-    consumer_key: config.yelp.clientId,
-    consumer_secret: config.yelp.clientSecret
+    consumer_key: process.env.yelp_clientId,
+    consumer_secret: process.env.yelp_clientSecret
   });
 
   const places = await Place.find({});
