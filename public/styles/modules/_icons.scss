@@ -1,0 +1,22 @@
+.icon {
+  display: inline-block;
+  position: relative;
+  &--github {
+    width: 16px;
+    height: 16px;
+    top: 6px;
+    left: 5px;
+    transition: transform 0.3s ease-out;
+
+    &:hover {
+      transform: rotateZ(360deg);
+    }
+    @include atMedium {
+      width: 32px;
+      height: 32px;
+      // margin-top: 3px;
+      top: 6px;
+      left: 5px;
+    }
+  }
+}

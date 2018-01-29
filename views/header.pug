@@ -1,13 +1,20 @@
-header
-  nav
-    ul
-      li
-        a(href='/') Home
-      if user
-        li
-          a(href='/logout') Logout
-      else
-        li
-          a(href='/login/') Login
-        li
-          a(href='/signup') Signup
+header.site-header
+  nav.site-header__navigation
+    .site-header__navigation--logo
+      a(href='/') Home
+    .site-header__navigation--menu-icon
+      .container
+        .icona.no-animation
+          .top.bar
+          .middle.bar
+          .bottom.bar
+    .site-header__navigation--menu-content
+      ul
+        if user
+          li
+            a(href='/logout') Logout
+        else
+          li
+            a(href='/login/') Login
+          li
+            a(href='/signup') Signup

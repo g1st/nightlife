@@ -4,14 +4,22 @@ html(lang="en")
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    link(rel="stylesheet", href="/dist/App.bundle.css")
+    link(rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon")
+    //- link(href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet")
     title Nightlife
   body
     include header.pug
     main
-      block content
-        section This will be block content's fall back
+      .wrapper
+        block content
+          section This will be block content's fall back
     footer
-      div div in a footer
-    script(type="text/javascript" src=`https://maps.googleapis.com/maps/api/js?key=${process.env.apiKey}&libraries=places`)
-    script(src="/javascript/bundle.js")
+      .wrapper
+        include footer.pug
+
+    block scripts
+      if title === 'Nightlife'
+        script(type="text/javascript" src=`https://maps.googleapis.com/maps/api/js?key=${process.env.apiKey}&libraries=places`)
+      script(src="/dist/App.bundle.js")
     

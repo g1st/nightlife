@@ -6,7 +6,8 @@ const { sanitizeBody } = require('express-validator/filter');
 
 exports.login = (req, res) => {
   res.render('login', {
-    title: 'Login'
+    title: 'Login',
+    message: req.flash('error')
   });
 };
 
@@ -23,28 +24,25 @@ exports.logout = (req, res) => {
 
 exports.loginFormValidation = (req, res, next) => {
   const errors = validationResult(req);
-  // console.log(errors.mapped());
+
   if (!errors.isEmpty()) {
-    // TODO: flash errors nicely
-    // return res.status(422).json({
-    //   errors: errors.mapped()
-    // });
-    return res.render('login', { title: 'Login', body: req.body });
+    return res.render('login', {
+      title: 'Login',
+      body: req.body,
+      errors: errors.mapped()
+    });
   }
   next();
 };
 
 exports.signMe = async (req, res, next) => {
   const errors = validationResult(req);
-  // console.log(errors.mapped());
+
   if (!errors.isEmpty()) {
-    // TODO: flash errors nicely
-    // return res.status(422).json({
-    //   errors: errors.mapped()
-    // });
     return res.render('signup', {
       title: 'Signup',
-      body: req.body
+      body: req.body,
+      errors: errors.mapped()
     });
   }
 
@@ -67,8 +65,8 @@ exports.signMe = async (req, res, next) => {
   });
 
   // this register method is from passportLocalMongoose
-
   // callback style commented and promisify library used below to avoid callbacks
+
   // User.register(user, req.body.password, (err, user) => {
   //   if (err) {
   //     console.error(err);

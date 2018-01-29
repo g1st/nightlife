@@ -1,9 +1,9 @@
-import autocomplete from './modules/autocomplete.js';
+import '../styles/styles.scss';
+import autocompleteGoogle from './modules/autocomplete.js';
 import goingButton from './modules/goingButton.js';
+import hamburger from './modules/hamburger.js';
 
-autocomplete(
+autocompleteGoogle(
   document.querySelector('#search'),
-  // document.querySelector('#lat'),
-  // document.querySelector('#lng'),
   document.querySelector('#searchForm')
 );

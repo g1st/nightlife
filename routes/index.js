@@ -4,7 +4,7 @@ const userController = require('../controllers/userController.js');
 const authController = require('../controllers/authController.js');
 
 router.get('/', (req, res) => {
-  res.render('index', { user: req.user });
+  res.render('index', { title: 'Nightlife', user: req.user });
 });
 
 router.get('/api/places', searchController.searchBusiness);
