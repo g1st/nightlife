@@ -10,9 +10,14 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const flash = require('connect-flash');
+const helmet = require('helmet');
 
 const app = express();
 
+// prptects from most common web vulnerabilities
+app.use(helmet());
+
+// logger for dev
 app.use(morgan('dev'));
 // create application/x-www-form-urlencoded parser
 app.use(
@@ -22,6 +27,20 @@ app.use(
 );
 app.use(bodyParser.json());
 app.use(cookieParser());
+
+// handlings CORS
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+  );
+  if (req.method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+    return res.status(200).json({});
+  }
+  next();
+});
 
 // static files in public directory
 app.use(express.static(__dirname + '/public'));

@@ -2,3 +2,14 @@
   padding-top: 60px;
   position: relative;
 }
+
+.credits {
+  display: flex;
+  justify-content: center;
+  > h4 {
+    display: inline-block;
+  }
+  > a {
+    display: inline-block;
+  }
+}

@@ -1098,7 +1098,7 @@ function ajaxSearch(lat, lng) {
 
     var resultElement = document.querySelector('.results');
     if (res.data.total === 0) {
-      resultElement.innerHTML = '\n        <p>Sorry, we cannot find any venues in this area.</p>\n        <p><a href="https://www.yelp.com/developers/documentation/v3/supported_locales" target="_blank">Countries supported by Yelp\'s API</a></p>\n        ';
+      resultElement.innerHTML = '\n        <p>Sorry we cannot find any venues in this area.</p>\n        <p><a href="https://www.yelp.com/developers/documentation/v3/supported_locales" target="_blank">Countries supported by Yelp\'s API</a></p>\n        ';
       return;
     }
     resultElement.innerHTML = generateSuccessHTMLOutput(res.data.data, res.data.places);

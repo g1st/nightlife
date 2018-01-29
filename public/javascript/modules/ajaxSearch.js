@@ -42,7 +42,7 @@ function ajaxSearch(lat, lng) {
       const resultElement = document.querySelector('.results');
       if (res.data.total === 0) {
         resultElement.innerHTML = `
-        <p>Sorry, we cannot find any venues in this area.</p>
+        <p>Sorry we cannot find any venues in this area.</p>
         <p><a href="https://www.yelp.com/developers/documentation/v3/supported_locales" target="_blank">Countries supported by Yelp's API</a></p>
         `;
         return;
