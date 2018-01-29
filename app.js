@@ -1,6 +1,5 @@
 const express = require('express');
 const passport = require('passport');
-const config = require('./config/secret.js');
 require('dotenv').config({
   path: 'variables.env'
 });
