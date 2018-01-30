@@ -10,6 +10,7 @@ function goingButton(e, target, lat, lng) {
       // info to redirect user back from where he came
       if (!result.update && !result.newPlace) {
         const form = document.getElementById('search');
+        sessionStorage.setItem('offsetTop', e.target.offsetTop);
         sessionStorage.setItem('search', form.value);
         sessionStorage.setItem('lat', lat);
         sessionStorage.setItem('lng', lng);
