@@ -13,11 +13,12 @@ const helmet = require('helmet');
 
 const app = express();
 
-// prptects from most common web vulnerabilities
+// protects from most common web vulnerabilities like xss
 app.use(helmet());
 
 // logger for dev
 app.use(morgan('dev'));
+
 // create application/x-www-form-urlencoded parser
 app.use(
   bodyParser.urlencoded({
@@ -25,6 +26,7 @@ app.use(
   })
 );
 app.use(bodyParser.json());
+
 app.use(cookieParser());
 
 // handlings CORS
@@ -65,8 +67,7 @@ app.use(flash());
 mongoose.connect(
   `mongodb://${process.env.mongodb_user}:${
     process.env.mongodb_pass
-  }@ds131137.mlab.com:31137/nightlife`,
-  {
+  }@ds131137.mlab.com:31137/nightlife`, {
     useMongoClient: true
   }
 );
