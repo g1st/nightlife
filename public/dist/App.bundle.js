@@ -963,6 +963,7 @@ function goingButton(e, target, lat, lng) {
     // info to redirect user back from where he came
     if (!result.update && !result.newPlace) {
       var form = document.getElementById('search');
+      sessionStorage.setItem('offsetTop', e.target.offsetTop);
       sessionStorage.setItem('search', form.value);
       sessionStorage.setItem('lat', lat);
       sessionStorage.setItem('lng', lng);
@@ -1108,6 +1109,14 @@ function ajaxSearch(lat, lng) {
         (0, _goingButton2.default)(e, this, lat, lng);
       });
     });
+    if (sessionStorage.getItem('offsetTop') !== undefined) {
+      console.log(sessionStorage.getItem('offsetTop'));
+      // giving it 1 sec for images to load because they change elements height
+      setTimeout(function () {
+        window.scrollTo(0, sessionStorage.getItem('offsetTop'));
+        sessionStorage.removeItem('offsetTop');
+      }, 1000);
+    }
   }).catch(function (err) {
     console.log(err);
   });

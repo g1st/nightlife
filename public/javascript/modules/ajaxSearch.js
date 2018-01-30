@@ -57,6 +57,14 @@ function ajaxSearch(lat, lng) {
           goingButton(e, this, lat, lng);
         });
       });
+      if (sessionStorage.getItem('offsetTop') !== undefined) {
+        console.log(sessionStorage.getItem('offsetTop'));
+        // giving it 1 sec for images to load because they change elements height
+        setTimeout(() => {
+          window.scrollTo(0, sessionStorage.getItem('offsetTop'));
+          sessionStorage.removeItem('offsetTop');
+        }, 1000);
+      }
     })
     .catch(err => {
       console.log(err);
