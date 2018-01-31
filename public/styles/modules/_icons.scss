@@ -4,7 +4,7 @@
   &--github {
     width: 16px;
     height: 16px;
-    top: 6px;
+    top: 12px;
     left: 5px;
     transition: transform 0.3s ease-out;
 
@@ -14,9 +14,30 @@
     @include atMedium {
       width: 32px;
       height: 32px;
-      // margin-top: 3px;
       top: 6px;
-      left: 5px;
+      left: 6px;
+    }
+  }
+  &--yelp {
+    width: 80px;
+    height: auto;
+    top: 6px;
+
+    @include atMedium {
+      top: 10px;
+      width: initial;
+    }
+  }
+}
+
+.icons {
+  display: flex;
+  justify-content: center;
+
+  @include atMedium {
+    padding-bottom: 20px;
+    img:nth-child(2) {
+      padding: 0 20px;
     }
   }
 }
