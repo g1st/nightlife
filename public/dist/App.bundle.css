@@ -701,7 +701,7 @@ input:-webkit-autofill {
   .icon--github {
     width: 16px;
     height: 16px;
-    top: 6px;
+    top: 12px;
     left: 5px;
     -webkit-transition: -webkit-transform 0.3s ease-out;
     transition: -webkit-transform 0.3s ease-out;
@@ -715,7 +715,28 @@ input:-webkit-autofill {
         width: 32px;
         height: 32px;
         top: 6px;
-        left: 5px; } }
+        left: 6px; } }
+  .icon--yelp {
+    width: 80px;
+    height: auto;
+    top: 6px; }
+    @media screen and (min-width: 800px) {
+      .icon--yelp {
+        top: 10px;
+        width: initial; } }
+
+.icons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center; }
+  @media screen and (min-width: 800px) {
+    .icons {
+      padding-bottom: 20px; }
+      .icons img:nth-child(2) {
+        padding: 0 20px; } }
 
 .results {
   margin: auto;

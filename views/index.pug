@@ -3,6 +3,10 @@ include ./mixins/_searchForm.pug
 
 block content
   h2.headline Plans Tonight?
+  .icons
+    img(src="/images/ic_local_bar_white_24dp_2x.png", alt="Icon of a glass")
+    img(src="/images/ic_local_taxi_white_24dp_2x.png", alt="Icon of a taxi")
+    img(src="/images/ic_room_white_24dp_2x.png", alt="Icon of a location pointer")
   h3.headline.headline--medium See which bars are hoppin' tonight and RSVP ahead of time!
   +searchForm()
   h3.headline.headline--small.loading
