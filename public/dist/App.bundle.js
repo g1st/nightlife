@@ -1034,7 +1034,6 @@ function autocomplete(input, form) {
     var lat = place.geometry.location.lat();
     var lng = place.geometry.location.lng();
     if (lat) {
-      // start css animation
       document.querySelector('.loading').innerText = 'Searching...';
       (0, _ajaxSearch2.default)(lat, lng);
     }
@@ -1052,7 +1051,7 @@ function autocomplete(input, form) {
       sessionStorage.removeItem('lng');
     }
   }
-  // if someone hits enter on address field dont submit the form for now
+  // if someone hits enter on address field dont submit the form
   input.addEventListener('keydown', function (e) {
     if (e.keyCode === 13) e.preventDefault();
   });
@@ -1094,24 +1093,26 @@ function ajaxSearch(lat, lng) {
       lng: lng
     }
   }).then(function (res) {
-    // finish css loading animation
     document.querySelector('.loading').innerText = '';
-
     var resultElement = document.querySelector('.results');
+
     if (res.data.total === 0) {
       resultElement.innerHTML = '\n        <p>Sorry we cannot find any venues in this area.</p>\n        <p><a href="https://www.yelp.com/developers/documentation/v3/supported_locales" target="_blank">Countries supported by Yelp\'s API</a></p>\n        ';
       return;
     }
+
     resultElement.innerHTML = generateSuccessHTMLOutput(res.data.data, res.data.places);
+
     var forms = document.querySelectorAll('form.venue');
+
     forms.forEach(function (form) {
       form.addEventListener('submit', function (e) {
         (0, _goingButton2.default)(e, this, lat, lng);
       });
     });
+
     if (sessionStorage.getItem('offsetTop') !== undefined) {
-      console.log(sessionStorage.getItem('offsetTop'));
-      // giving it 1 sec for images to load because they change elements height
+      // giving it 1 sec for images to load because they change elements height, not sure of better way atm
       setTimeout(function () {
         window.scrollTo(0, sessionStorage.getItem('offsetTop'));
         sessionStorage.removeItem('offsetTop');

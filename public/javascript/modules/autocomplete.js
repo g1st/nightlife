@@ -8,7 +8,6 @@ function autocomplete(input, form) {
     const lat = place.geometry.location.lat();
     const lng = place.geometry.location.lng();
     if (lat) {
-      // start css animation
       document.querySelector('.loading').innerText = 'Searching...';
       ajaxSearch(lat, lng);
     }
@@ -26,7 +25,7 @@ function autocomplete(input, form) {
       sessionStorage.removeItem('lng');
     }
   }
-  // if someone hits enter on address field dont submit the form for now
+  // if someone hits enter on address field dont submit the form
   input.addEventListener('keydown', e => {
     if (e.keyCode === 13) e.preventDefault();
   });

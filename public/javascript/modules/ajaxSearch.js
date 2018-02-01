@@ -36,10 +36,9 @@ function ajaxSearch(lat, lng) {
       }
     })
     .then(res => {
-      // finish css loading animation
       document.querySelector('.loading').innerText = '';
-
       const resultElement = document.querySelector('.results');
+
       if (res.data.total === 0) {
         resultElement.innerHTML = `
         <p>Sorry we cannot find any venues in this area.</p>
@@ -47,19 +46,22 @@ function ajaxSearch(lat, lng) {
         `;
         return;
       }
+
       resultElement.innerHTML = generateSuccessHTMLOutput(
         res.data.data,
         res.data.places
       );
+
       const forms = document.querySelectorAll('form.venue');
+
       forms.forEach(form => {
         form.addEventListener('submit', function(e) {
           goingButton(e, this, lat, lng);
         });
       });
+
       if (sessionStorage.getItem('offsetTop') !== undefined) {
-        console.log(sessionStorage.getItem('offsetTop'));
-        // giving it 1 sec for images to load because they change elements height
+        // giving it 1 sec for images to load because they change elements height, not sure of better way atm
         setTimeout(() => {
           window.scrollTo(0, sessionStorage.getItem('offsetTop'));
           sessionStorage.removeItem('offsetTop');

@@ -49,7 +49,7 @@ app.set('view engine', 'pug');
 
 app.use(
   session({
-    secret: 'keyboard cat',
+    secret: process.env.session_secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -67,7 +67,8 @@ app.use(flash());
 mongoose.connect(
   `mongodb://${process.env.mongodb_user}:${
     process.env.mongodb_pass
-  }@ds131137.mlab.com:31137/nightlife`, {
+  }@ds131137.mlab.com:31137/nightlife`,
+  {
     useMongoClient: true
   }
 );
