@@ -1,5 +1,4 @@
 const Yelp = require('node-yelp-api-v3');
-// const config = require('../config/secret');
 const Place = require('../models/Place');
 
 exports.searchBusiness = async (req, res) => {
@@ -18,7 +17,6 @@ exports.searchBusiness = async (req, res) => {
       price: '1, 2, 3, 4'
     })
     .then(data => {
-      console.log(data);
       return res.json({
         places,
         data: data.businesses,

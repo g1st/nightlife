@@ -51,8 +51,6 @@ exports.signMe = async (req, res, next) => {
   });
 
   if (userAlreadyExists) {
-    console.log('username already exists');
-    // flash error that emial already exists
     return res.render('signup', {
       title: 'Signup',
       body: req.body

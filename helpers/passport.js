@@ -1,6 +1,5 @@
 const passport = require('passport');
 const User = require('../models/User');
-const mongoose = require('mongoose');
 
 passport.use(User.createStrategy());
 
