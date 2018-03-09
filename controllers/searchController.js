@@ -1,29 +1,26 @@
-const Yelp = require('node-yelp-api-v3');
+const fetch = require('node-fetch');
 const Place = require('../models/Place');
 
 exports.searchBusiness = async (req, res) => {
-  const yelp = new Yelp({
-    consumer_key: process.env.yelp_clientId,
-    consumer_secret: process.env.yelp_clientSecret
-  });
-
   const places = await Place.find({});
 
-  yelp
-    .searchBusiness({
-      categories: 'nightlife',
-      latitude: req.query.lat,
-      longitude: req.query.lng,
-      price: '1, 2, 3, 4'
+  const [lat, lng] = [req.query.lat, req.query.lng];
+
+  const url = `https://api.yelp.com/v3/businesses/search?categories=nightlife&price=1, 2, 3, 4&latitude=${lat}&longitude=${lng}`;
+
+  fetch(url, {
+    headers: { authorization: `Bearer ${process.env.yelp_API_KEY}` }
+  })
+    .then(function(response) {
+      return response.json();
     })
-    .then(data => {
+    .then(function(data) {
       return res.json({
         places,
         data: data.businesses,
         total: data.total
       });
-    })
-    .catch(err => console.error(err));
+    });
 };
 
 exports.peopleGoing = async (req, res) => {
