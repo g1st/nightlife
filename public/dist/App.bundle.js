@@ -1027,34 +1027,43 @@ var _ajaxSearch2 = _interopRequireDefault(_ajaxSearch);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function autocomplete(input, form) {
-  var autocomplete = new google.maps.places.Autocomplete(input);
+  if (input) {
+    var _autocomplete = new google.maps.places.Autocomplete(input);
 
-  autocomplete.addListener('place_changed', function () {
-    var place = autocomplete.getPlace();
-    var lat = place.geometry.location.lat();
-    var lng = place.geometry.location.lng();
-    if (lat) {
-      document.querySelector('.loading').innerText = 'Searching...';
-      (0, _ajaxSearch2.default)(lat, lng);
-    }
-  });
+    _autocomplete.addListener('place_changed', function () {
+      var place = _autocomplete.getPlace();
+      if (!place.geometry) {
+        // User entered the name of a Place that was not suggested and
+        // pressed the Enter key, or the Place Details request failed.
+        window.alert("No details available for input: '" + place.name + "'");
+        return;
+      }
 
-  // show what user was searching after login redirect
-  if (sessionStorage.getItem('search') !== undefined) {
-    document.querySelector('#search').value = sessionStorage.getItem('search');
-    var lat = sessionStorage.getItem('lat');
-    var lng = sessionStorage.getItem('lng');
-    if (lat) {
-      (0, _ajaxSearch2.default)(lat, lng);
-      sessionStorage.removeItem('search');
-      sessionStorage.removeItem('lat');
-      sessionStorage.removeItem('lng');
+      var lat = place.geometry.location.lat();
+      var lng = place.geometry.location.lng();
+      if (lat) {
+        document.querySelector('.loading').innerText = 'Searching...';
+        (0, _ajaxSearch2.default)(lat, lng);
+      }
+    });
+
+    // show what user was searching after login redirect
+    if (sessionStorage.getItem('search') !== undefined) {
+      document.querySelector('#search').value = sessionStorage.getItem('search');
+      var lat = sessionStorage.getItem('lat');
+      var lng = sessionStorage.getItem('lng');
+      if (lat) {
+        (0, _ajaxSearch2.default)(lat, lng);
+        sessionStorage.removeItem('search');
+        sessionStorage.removeItem('lat');
+        sessionStorage.removeItem('lng');
+      }
     }
+    // if someone hits enter on address field dont submit the form
+    input.addEventListener('keydown', function (e) {
+      if (e.keyCode === 13) e.preventDefault();
+    });
   }
-  // if someone hits enter on address field dont submit the form
-  input.addEventListener('keydown', function (e) {
-    if (e.keyCode === 13) e.preventDefault();
-  });
 }
 
 exports.default = autocomplete;
